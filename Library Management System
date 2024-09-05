@@ -1,0 +1,168 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+struct Book {
+ int id;
+ string title;
+ string author;
+ bool isAvailable;
+ string issuedTo;
+};
+vector<Book> library;
+void addBook() {
+ Book newBook;
+ cout << "Enter book ID: ";
+ cin >> newBook.id;
+ cout << "Enter book title: ";
+ cin.ignore();
+ getline(cin, newBook.title);
+ cout << "Enter book author: ";
+ getline(cin, newBook.author);
+ newBook.isAvailable = true;
+ library.push_back(newBook);
+ cout << "Book added successfully!" << endl;
+}
+void searchBook() {
+ int id;
+ string title;
+ cout << "Enter book ID : ";
+ cin >> id;
+ if (cin.fail()) {
+ cin.clear();
+ cin.ignore();
+ getline(cin, title);
+ for (const auto& book : library) {
+ if (book.title == title) {
+ cout << "Book found!" << endl;
+ cout << "ID: " << book.id << endl;
+ cout << "Title: " << book.title << endl;
+ cout << "Author: " << book.author << endl;
+ cout << "Availability: " << (book.isAvailable ? "Available" : "Issued") << endl;
+ return;
+ }
+ }
+ cout << "Book not found!" << endl;
+ } else {
+ for (const auto& book : library) {
+ if (book.id == id) {
+ cout << "Book found!" << endl;
+ cout << "ID: " << book.id << endl;
+ cout << "Title: " << book.title << endl;
+ cout << "Author: " << book.author << endl;
+ cout << "Availability: " << (book.isAvailable ? "Available" : "Issued") << endl;
+ return;
+ }
+ }
+ cout << "Book not found!" << endl;
+ }
+}
+void issueBook() {
+ int id;
+ cout << "Enter book ID: ";
+ cin >> id;
+ for (auto& book : library) {
+ if (book.id == id) {
+ if (book.isAvailable) {
+ cout << "Enter student name: ";
+ cin.ignore();
+ getline(cin, book.issuedTo);
+ book.isAvailable = false;
+ cout << "Book issued successfully!" << endl;
+ return;
+ } else {
+ cout << "Book is already issued!" << endl;
+ return;
+ }
+ }
+ }
+ cout << "Book not found!" << endl;
+}
+void returnBook() {
+ int id;
+ cout << "Enter book ID: ";
+ cin >> id;
+ for (auto& book : library) {
+ if (book.id == id) {
+ if (!book.isAvailable) {
+ book.isAvailable = true;
+ book.issuedTo.clear();
+ cout << "Book returned successfully!" << endl;
+ return;
+ } else {
+ cout << "Book is already available!" << endl;
+ return;
+ }
+ }
+ }
+ cout << "Book not found!" << endl;
+}
+void listBooks() {
+ sort(library.begin(), library.end(), [](const Book& a, const Book& b) {
+ return a.id < b.id;
+ });
+ for (const auto& book : library) {
+ cout << "ID: " << book.id << endl;
+ cout << "Title: " << book.title << endl;
+ cout << "Author: " << book.author << endl;
+ cout << "Availability: " << (book.isAvailable ? "Available" : "Issued") << endl;
+ if (!book.isAvailable) {
+ cout << "Issued to: " << book.issuedTo << endl;
+ }
+ cout << endl;
+ }
+}
+void deleteBook() {
+ int id;
+ cout << "Enter book ID: ";
+ cin >> id;
+ for (auto it = library.begin(); it != library.end(); ++it) {
+ if (it->id == id) {
+ library.erase(it);
+ cout << "Book deleted successfully!" << endl;
+ return;
+ }
+ }
+ cout << "Book not found!" << endl;
+}
+int main() {
+ int choice;
+ while (true) {
+ cout << "Library Management System" << endl;
+ cout << "1. Add a book" << endl;
+ cout << "2. Search for a book" << endl;
+ cout << "3. Issue a book" << endl;
+ cout << "4. Return a book" << endl;
+ cout << "5. List all books" << endl;
+ cout << "6. Delete a book" << endl;
+ cout << "7. Exit" << endl;
+ cout << "Enter your choice: ";
+ cin >> choice;
+ switch (choice) {
+ case 1:
+ addBook();
+ break;
+ case 2:
+ searchBook();
+ break;
+ case 3:
+ issueBook();
+ break;
+ case 4:
+ returnBook();
+ break;
+ case 5:
+ listBooks();
+ break;
+ case 6:
+ deleteBook();
+ break;
+ case 7:
+ return 0;
+ default:
+ cout << "Invalid choice!" << endl;
+ }
+ }
+ return 0;
+}
