@@ -3,7 +3,7 @@ using namespace std;
 int main(){
     char ch;
     cin>>ch;
-    if(ch>='a' && ch<='z'){
+    if(ch>='a' && ch<='z'){          //can use ASCII values for comparision
         cout<<"Lowercase";
     }else{
         cout<<"Uppercase";
