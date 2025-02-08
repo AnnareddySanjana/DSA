@@ -1,0 +1,15 @@
+#include<iostream>
+using namespace std;
+int main(){
+    int i,j;
+    int s=1;
+    int n=4;
+    for(i=1;i<4;i++){
+        for(j=s;j<n;j++){
+            cout<<j;
+        }
+        cout<<endl;
+        s=s+3;
+        n=n+3;
+    }
+}
