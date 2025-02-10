@@ -1,0 +1,12 @@
+#include<iostream>
+using namespace std;
+int minimum(int a, int b){
+    if(a<b){
+        return a;
+    }else{
+        return b;
+    }
+}
+int main(){
+    cout<<"mininimum= "<<minimum(78,98)<<endl;
+}
