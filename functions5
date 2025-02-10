@@ -1,0 +1,15 @@
+#include<iostream>
+using namespace std;
+int sumofDIGITS(int n){
+    int digitsum=0;
+    int i=0;
+    while(i<n){
+        int digit = n%10;
+        digitsum=digitsum+digit;
+        n=n/10;
+    }
+    return digitsum;
+}
+int main(){
+    cout<<sumofDIGITS(2753);
+}
