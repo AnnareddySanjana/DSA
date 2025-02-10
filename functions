@@ -1,0 +1,11 @@
+#include<iostream>
+using namespace std;
+int sumoftwo(int a, int b){
+    int sum = a+b;
+    return sum;
+}
+int main(){
+    cout<<sumoftwo(87,98)<<endl;
+    cout<<sumoftwo(85,24)<<endl;
+    return 0;
+}
