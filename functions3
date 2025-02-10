@@ -1,0 +1,9 @@
+#include<iostream>
+using namespace std;
+void Print(){
+    cout<<"function is invoked"<<endl;
+}
+int main(){
+    Print();
+    return 0;
+}
